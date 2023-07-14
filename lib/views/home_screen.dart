@@ -4,10 +4,30 @@ import 'package:movieticket/model/movie_dets.dart';
 import 'package:movieticket/ui.dart';
 import 'package:movieticket/views/synopsis_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  ThemeMode _themeMode = ThemeMode.system;
+  void changeTheme(ThemeMode themeMode) {
+    setState(() {
+      _themeMode = themeMode;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return MaterialApp(
+      title: 'Book Movie',
+      theme: ThemeData(
+        primarySwatch: Colors.grey,
+      ),
+    darkTheme: ThemeData.dark(),
+    themeMode: _themeMode,
+    debugShowCheckedModeBanner: false,
+    home: Container(
       child: DefaultTabController(
         length: 3,
         child: Scaffold(
@@ -15,10 +35,10 @@ class HomeScreen extends StatelessWidget {
             leading: Icon(
               Icons.menu,
             ),
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.grey,
             elevation: 0,
             title: Text("Book Movie",
-                style: TextStyle(fontSize: 25, color: Colors.black)),
+                style: TextStyle(fontSize: 25, color: Colors.white)),
             centerTitle: true,
             bottom: TabBar(
               tabs: [
@@ -34,19 +54,23 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
             actions: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.dark_mode,
-                      size: 28,
-                    )
-                  ],
+              IconButton(
+                icon:Icon(
+                    Icons.dark_mode
                 ),
+                onPressed: () {
+                changeTheme(ThemeMode.dark);
+              },
               ),
-            ],
-          ),
+              IconButton(
+                icon: Icon(
+                  Icons.light_mode
+                ),
+                  onPressed: (){
+                    changeTheme(ThemeMode.light);
+                  }
+                  )
+            ],),
           body: Container(
             child: TabBarView(children: [
               Container(
@@ -68,9 +92,11 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
+    ),
     );
   }
 }
+
 
 enum MovieType {
   popular,

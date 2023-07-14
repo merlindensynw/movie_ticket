@@ -21,7 +21,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'Book Movie',
       theme: ThemeData(
         primarySwatch: Colors.grey,
@@ -30,3 +29,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
